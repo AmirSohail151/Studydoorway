@@ -1,0 +1,66 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+      
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+         <div class="card-body">
+          <h5 class="card-title">Class Room Name:  {{classroom.name}}</h5>
+          <h1>Section :  {{classroom.section}}</h1>
+          <h1>Subject :  {{classroom.subject}}</h1>
+          <h1> Class Key:  {{classroom.class_key}}</h1>
+          <h1> Date Created :  {{classroom.date_created}}</h1>
+
+         </div>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+
+ <div class="card">
+  <div class="card-body">
+    <h3 class="text-center"> Add Reviews</h3>
+    <form method="POST"class="rate-form" action="{% url 'myapp:add_review' classroom.id %}">
+    	{% csrf_token %}
+      {{form|crispy}}
+      <input type="submit" name="btn btn-danger" value="Add Review">
+      
+    </form>
+  </div>
+  <div id="confirm-box"></div>
+</div>
+
+
+ <div class="card">
+  <div class="card-body">
+    <h3 class="text-center">  Reviews</h3>
+    {%for review in reviews%}
+      <div class="card" style="background-color:#efeaeb">
+       <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <h5 class="text-left">{{review.user.username}} </h5>
+    	      <h5>{{review.rating}}</h5>
+            <a href="{% url 'myapp:edit_review' classroom.id review.id %}">Edit</a>
+            <a href="{% url 'myapp:delete_review' classroom.id review.id %}" onclick="return confirm('are you sure to delete this comment ? ');" >Delete</a>
+          </div>
+           <div class="col-md-9">
+            <p class="text-left">{{review.comment}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    {%endfor%}
+
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+{% endblock %}

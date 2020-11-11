@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+
+<div class="row justify-content-center">
+  <div class="col-md-4">
+     <div class="card">
+      <div class="card-body">
+        <h3 class="text-center"> Edit  Reviews</h3>
+        <form method="POST" action="" novalidate>
+        	{% csrf_token %}
+          {{form|crispy}}
+        	<input type="submit" name="btn btn-danger" value="Save Changes">
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock%}
